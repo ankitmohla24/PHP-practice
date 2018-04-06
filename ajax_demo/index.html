@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
    <script>
     
     $(document).ready(function(){
-       $('#search').keyup(function(){
+       $('#search').keyup(function(){                   //search cars from database
            var search = $('#search').val();
            //alert(search);
            $.ajax({
@@ -27,18 +27,44 @@
            });
            
        });
-   
+        
+        
+        $('#add-cars').submit(function(event){          //add cars to database
+            event.preventDefault();
+            var postData = $(this).serialize();
+            var url = $(this).attr('action');
+            $.post(url,postData function(result){
+                $('#cars-result').html(result);
+                
+            });
+       });
+        
    });
    </script>
    
    <div id="container" class="col-xs-6 col-xs-offset-3 text-center">
-       <h2>Search Our Database</h2>
-       <input class="form-control" type="text" name="search" id="search" placeholder="Search Inventory">
-       <br>
-       <br>
-       <h2 class="bg-success" id="result">          
-       </h2>
-       
+          <div class="row">
+           <h2>Search Our Database</h2>
+           <input class="form-control" type="text" name="search" id="search" placeholder="Search Inventory">
+           <br>
+           <br>
+           <h2 class="bg-success" id="result">          
+           </h2>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <form method="POST" id="add-cars" class="col-xs-6" action="add_cars.php">
+                <div class="form-group">
+                    <input type="text" name="car_name" class="form-control">
+                    <input type="submit" value="Add Car" class="btn btn-primary">
+                </div>
+            </form>
+            <br>
+           <br>
+           <h2 class="bg-success" id="cars-result">          
+           </h2> 
+        </div>
    </div>
 </body>
 </html>

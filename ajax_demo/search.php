@@ -1,6 +1,6 @@
 <?php
+require("db.php");
 
-$connection = mysqli_connect('localhost','root','','ajax');
 $search = $_POST['search'];
 if(!empty($search)){
     $query = "SELECT * FROM cars WHERE carName LIKE '$search%'";
