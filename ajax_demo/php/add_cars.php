@@ -12,6 +12,4 @@ if(isset($_POST['car_name'])){
         echo "$brand added to stock";
     }
 }
-
-
 ?>

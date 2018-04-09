@@ -46,7 +46,7 @@
             type:"POST",
             success:function(all_cars){
                 if(!all_cars.error){
-                    $.("#all-cars").html(all_cars);
+                    $("#all-cars").html(all_cars);
                 }
             }
             
@@ -54,7 +54,7 @@
    });
    </script>
    
-   <div id="container" class="col-xs-6 col-xs-offset-3 text-center">
+   <div id="container" >
           <div class="row">
            <h2>Search Our Database</h2>
            <input class="form-control" type="text" name="search" id="search" placeholder="Search Inventory">
