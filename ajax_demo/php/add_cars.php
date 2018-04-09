@@ -9,7 +9,7 @@ if(isset($_POST['car_name'])){
         die('QUERY FAILED'.mysqli_error($connection));
     }
     else{
-        header("Location: index.html");
+        echo "$brand added to stock";
     }
 }
 

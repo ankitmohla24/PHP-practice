@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
    <script>
@@ -14,7 +14,7 @@
            var search = $('#search').val();
            //alert(search);
            $.ajax({
-               url:'search.php',
+               url:'php/search.php',
                data:{search:search},
                type:'POST',
                success:function(res){
@@ -23,9 +23,7 @@
                        $("#result").html(res);
                    }
                }
-               
            });
-           
        });
         
         
@@ -33,12 +31,26 @@
             event.preventDefault();
             var postData = $(this).serialize();
             var url = $(this).attr('action');
-            $.post(url,postData function(result){
-                $('#cars-result').html(result);
+            $.post(url, postData, function(result){
+                if(!result.error){
+                       //alert(data);
+                       $('#cars-result').html(result);
+                   }
+                
                 
             });
-       });
+        });
         
+        $.ajax({                                           //showing the complete database
+            url:"php/display_cars.php",
+            type:"POST",
+            success:function(all_cars){
+                if(!all_cars.error){
+                    $.("#all-cars").html(all_cars);
+                }
+            }
+            
+        });    
    });
    </script>
    
@@ -54,17 +66,36 @@
         <br>
         <br>
         <div class="row">
-            <form method="POST" id="add-cars" class="col-xs-6" action="add_cars.php">
+            <form method="POST" id="add-cars" class="col-xs-6" action="php/add_cars.php">
                 <div class="form-group">
                     <input type="text" name="car_name" class="form-control">
                     <input type="submit" value="Add Car" class="btn btn-primary">
+                    <br>
+                    <br>
                 </div>
             </form>
-            <br>
-           <br>
-           <h2 class="bg-success" id="cars-result">          
-           </h2> 
+            <h2 class="bg-success" id="cars-result"></h2> 
         </div>
+       <div class="row">
+           <div class="col-xs-6">
+               <table class="table">
+                   <thead>
+                       <tr>
+                           <th>ID</th>
+                           <th>Name</th>
+                       </tr>
+                   </thead>
+                   <tbody id="all-cars">
+                       
+                       
+                       
+                   </tbody>
+               </table>
+               
+           </div>
+           
+           
+       </div>    
    </div>
 </body>
 </html>
